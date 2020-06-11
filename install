@@ -1,0 +1,23 @@
+1) Download and extract
+
+# cd /var/
+# wget  https://releases.ansible.com/ansible-tower/setup/ansible-tower-setup-3.7.0-4.tar.gz
+# tar xvzf ansible-tower-setup-3.7.0-4.tar.gz
+# cd ./ansible-tower-setup-3.7.0-4/
+
+---
+
+2) Edit inventory file
+Just need to change the admin_password and pg_password
+
+Cheat sheet for nano : https://www.nano-editor.org/dist/latest/cheatsheet.html
+
+# open inventory with nano
+admin_password=
+pg_password=
+
+---
+
+3) Run setup.sh
+
+# ./setup.sh
