@@ -1,0 +1,50 @@
+1) Install RHEL 7.8
+
+2) Open Firewall Ports
+
+# firewall-cmd \
+--add-port="80/tcp" --add-port="443/tcp" \
+--add-port="5647/tcp" --add-port="8000/tcp" \
+--add-port="8140/tcp" --add-port="9090/tcp" \
+--add-port="53/udp" --add-port="53/tcp" \
+--add-port="67/udp" --add-port="69/udp" \
+--add-port="5000/tcp"
+
+# firewall-cmd --runtime-to-permanent
+
+3) Register system
+
+# subscription-manager register
+
+4) Attach Satellite Sub
+
+# subscription-manager list --all --available --matches 'Red Hat Satellite Infrastructure Subscription'
+
+# subscription-manager attach --pool=[pool_id from above output]
+
+5) Configure repos
+
+# subscription-manager repos --disable "*"
+
+# subscription-manager repos --enable=rhel-7-server-rpms \
+--enable=rhel-7-server-satellite-6.7-rpms \
+--enable=rhel-7-server-satellite-maintenance-6-rpms \
+--enable=rhel-server-rhscl-7-rpms \
+--enable=rhel-7-server-ansible-2.8-rpms
+
+# yum clean all
+
+6) Update
+
+# yum update -y
+
+7) Install Satellite
+
+# yum install satellite -y
+
+8) Start installer
+satellite-installer --scenario satellite \
+--foreman-initial-organization "initial_organization_name" \
+--foreman-initial-location "initial_location_name" \
+--foreman-initial-admin-username admin_user_name \
+--foreman-initial-admin-password admin_password
